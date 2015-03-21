@@ -1,0 +1,25 @@
+Package: Playground
+Type: Package
+Title: Package development playground
+Version: 0.1
+Date: 2014-09-15
+Author: Benjamin Nutter
+Maintainer: Benjamin Nutter <nutterb@ccf.org>
+Description: Welcome to my playground.  This is my staging ground for
+    developing functions before putting them in more stable packages.
+Suggests:
+    devtools,
+    knitr,
+    methods,
+    RODBC,
+    testit,
+    testthat
+Imports:
+    Hmisc,
+    lazyWeave,
+    plyr,
+    reshape2
+License: GPL-2
+LazyLoad: yes
+VignetteBuilder: knitr
+Roxygen: list(wrap = TRUE)

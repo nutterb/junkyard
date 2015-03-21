@@ -1,0 +1,67 @@
+---
+output:
+  html_document:
+    fig_caption: yes
+    fig_height: 3
+    fig_width: 6
+    number_section: yes
+    toc: no
+  word_document:
+    fig_caption: yes
+    fig_height: 3
+    fig_width: 6
+---
+```{r memohead, echo=FALSE, results='asis', message=FALSE}
+.libPaths(c(.libPaths(), "/home/common/programs/R_Library"))
+library(lazyWeave)
+library(CCFproprietary)
+library(CCFutils)
+
+library(gdata)
+library(ggplot2)
+library(lubridate)
+library(plyr)
+library(reshape2)
+library(stringr)
+options(lazyReportFormat='markdown')
+
+library(Playground)
+
+
+BASEDIR <- getwd()
+project.subdir(BASEDIR, "")
+```
+![](http://upload.wikimedia.org/wikipedia/en/thumb/5/57/Cleveland_Clinic_logo.png/220px-Cleveland_Clinic_logo.png)  
+Section of Biostatistics  
+Quantitative Health Sciences/ JJN-3  
+9500 Euclid Ave, cleveland, OH 44195  
+QHSrequest@ccf.org  
+
+
+
+| ---------- | ------------- |
+| **To: **   | RECIPIENT |
+| **Dept: ** | DEPARTMENT |
+| **From: ** | AUTHOR |
+| **Re: **   | SUBJECT | 
+| _file_     | *`r BASEDIR`* |
+
+### Study Design
+
+### Study Aims
+
+### Power Analysis
+
+### Data
+
+### Statistical Methods
+
+### Results
+
+### Discussion
+
+### Limitations
+
+### Recommendations
+
+### References

@@ -1,0 +1,93 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{T Interval: One Sample}
+-->
+# T Interval
+
+**Table of Contents**
+
+1. T Statistic
+    a. Definitions and Terminology
+2. Confidence Limits
+3. Study Design Considerations
+4. Example: [Application]
+    a. Sample Size
+    b. Margin of Error
+    c. Standard Deviation
+    d. Significance
+    e. One Sided Intervals
+5. Study Design Derivations
+    a. Sample Size
+    b. Standard Deviation
+    c. Significance
+    d. One Sided Intervals
+6. References
+
+## 1. T Statistic
+The $t$-statistic is a standardized measure of the magnitude of difference between a sample's mean and some known, non-random constant.  It is similar to a $z$-statistic, but differs in that a $t$-statistic may be calculated without knowledge of the population variance.
+
+### 1a. Definitions and Terminology
+Let $\theta$ be a sample parameter from a sample with standard deviation $s$.  Let $\theta_0$ be a constant, and $s_\theta = s/\sqrt{n}$ be the standard error of the parameter $\theta$.  $t$ is defined:
+$$t = \frac{\theta - \theta_0}{s_\theta} = \frac{\theta - \theta_0}{\frac{s}{\sqrt{n}}}$$
+
+## 2. Confidence Limits
+The confidence interval for $\theta$ is written:
+$$\theta \pm t_{1-\alpha/2} \cdot \frac{s}{\sqrt{n}}$$
+
+The value of the expression on the right is often referred to as the _margin of error_, and we will refer to this value as 
+$$E = t_{1-\alpha/2} \cdot \frac{s}{\sqrt{n}}$$
+
+## 3. Study Design Considerations
+
+## 4. Example: [Application]
+
+### 4a. Sample Size
+### 4b. Margin of Error
+### 4c. Standard Deviation
+### 4d. Significance
+### 4e. One Sided Intervals
+
+## 5. Study Design Derivations
+### 5a. Sample Size
+$$E = t_{1-\alpha/2} \cdot \frac{s}{\sqrt{n}}$$
+$$\frac{E}{t_{1-\alpha/2}} = \frac{s}{\sqrt{n}}$$
+$$\frac{E}{t_{1-\alpha/2} \cdot s} = \frac{1}{\sqrt{n}}$$
+$$\frac{t_{1-\alpha/2} \cdot s}{E} = \sqrt{n}$$
+$$\frac{t_{1-\alpha/2}^2 \cdot s^2}{E^2} = n$$
+
+Since $t_{1-\alpha/2}$ depends on the value of $n$, this is not a problem that is easily reduced to a solution.  Many texts encourage using $z_{1-alpha/2}$ as a substitute, but we're using computers here, so we can probably do a little better.  Instead, if we write the last line as:
+$$\frac{t_{1-\alpha/2}^2 \cdot s^2}{E^2} - n = 0$$
+$$\big(\frac{t_{1-\alpha/2}^2 \cdot s^2}{E^2} - n\big)^2 = 0$$
+
+We now have a quadratic equation.  We'll use the `optimize` function in the `stats` package to find a best solution for $n$.  
+
+Consider when we have $n=25$, $s=4$ and $\alpha=.05$.  The value of $E$ here is 
+$$E = t_{1-\alpha/2} \cdot \frac{s}{\sqrt{n}} = 2.063899 \cdot 4/5 = 1.651119$$.
+
+Now let's rewrite the problem to solve for $n$ using `optimize`.
+```{r}
+fn <- function(n) (qt(1-.05/2, n-1)^2 * 4^2 / 1.651119^2 - n)^2
+optimize(fn, c(0, 100))
+```
+
+On the other hand, using the $z$ approximation yields
+```{r}
+qnorm(1-.05/2)^2 * 4^2 / 1.651119^2
+```
+
+which is two subjects short of what we would actually need.  `n_t1samp_interval` uses the `optimize` function and searches over the values 0 to 1,000,000,000.
+
+### 5b. Standard Deviation
+$$E = t_{1-\alpha/2} \cdot \frac{s}{\sqrt{n}}$$
+$$\frac{E}{t_{1-\alpha/2}} = \frac{s}{\sqrt{n}}$$
+$$\frac{E \cdot \sqrt{n}}{t_{1-\alpha/2}} = s$$
+
+### 5c. Significance
+$$E = t_{1-\alpha/2} \cdot \frac{s}{\sqrt{n}}$$
+$$\frac{E \cdot \sqrt{n}}{s} = t_{1-\alpha/2}$$
+$$\Phi_t\Big(\frac{E \cdot \sqrt{n}}{s}\Big) = \Phi_t(t_{1-\alpha/2})$$
+$$\Phi_t\Big(\frac{E \cdot \sqrt{n}}{s}\Big) = 1 - \frac{\alpha}{2}$$
+$$1 - \cdot \Phi_t\Big(\frac{E \cdot \sqrt{n}}{s}\Big) = \frac{\alpha}{2}$$
+$$2 \cdot \Big[1 - \Phi_t\Big(\frac{E \cdot \sqrt{n}}{s}\Big)\Big] = \alpha$$
+
+## 6. References

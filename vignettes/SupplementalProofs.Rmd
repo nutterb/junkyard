@@ -1,0 +1,75 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Supplemental Proofs}
+-->
+
+# Supplemental Proofs
+Other vignettes in this package provide extensive derivations of the algorithms 
+formulas used to calculate various aspects of the study design.  In some cases,
+these derivations require additional proofs that are not directly related
+to the topic.  In order to avoid tangents, these supplemental proofs are 
+gathered here for reference.
+
+**Table of Contents** 
+
+1. Expression of Unequal Sample Sizes as a Proportion
+2. Expression of Unequal Sample Sizes as a Ratio
+
+## 1. Expression of Unequal Sample Sizes as a Proportion
+Let $X_1$ represent a sample of size $n_1$ from a population.  
+Let $X_2$ represent a sample of size $n_2$ from a population.  
+Define $n = n_1 + n_2$ where $n_1 \leq n$ and $n_2 \leq n$.
+
+Since $n_2 \leq n$, we may write $n_2 = k \cdot n$ where $0 \leq k \leq 1$.  
+Additionally,
+$$n = n_1 + n_2$$
+$$\Rightarrow n_1 = n - n_2$$
+
+By substitution
+$$n_1 = n - n_2$$
+$$n_1 = n - k \cdot n$$
+$$n_1 = n \cdot (1 - k)$$
+$$n_1 = (1 - k) \cdot n$$
+
+Observing that $n_1 = n \cdot (1-k)$ and $n_2 = k \cdot n$, we see that both 
+$n_1$ and $n_2$ may be expressed strictly in terms of $n$ whenever $n$ is the 
+sum of $n_1$ and $n_2$.
+
+### 1.a Practical Implementation
+Being able to express $n_2$ in terms of $n_1$ makes it easier to calculate 
+sample size and power calculations in the case of unequal sample sizes.  In this
+particular context, we can express $n_2$ in terms of a proportion of $n$.  
+For example, if there are two subjects in Group 1 for every subject in Group 2, 
+$n_2 = \frac{1}{3} \cdot n$ and $n_1 = \frac{2}{3} \cdot n$.  
+
+## 2. Expression of Unequal Sample Sizes as a Ratio
+Let $X_1$ represent a sample of size $n_1$ from a population.  
+Let $X_2$ represent a sample of size $n_2$ from a population.  
+Define $n = n_1 + n_2$ where $n_1 \leq n$ and $n_2 \leq n$.  
+Since $n_2 \leq n$, we may write $n_2 = k \cdot n$ where $0 \leq k \leq 1$.   
+
+It is demonstrated in Section 1 that if $n_2 = k \cdot n$ then $n_1 = (1 - k) \cdot n$.
+It follows that 
+$$k = \frac{n_2}{n}$$
+and
+$$(1-k) = \frac{n_1}{n}$$
+
+Now we observe that
+$$n = n_1 + n_2 $$
+$$\Rightarrow n = n_1 + \frac{n_2 \cdot n_1}{n_1} $$
+$$\Rightarrow n = n_1 + \frac{n_2}{n_1} \cdot n_1 $$
+$$\Rightarrow n = n_1 + \frac{\frac{n_2}{n}}{\frac{n_1}{n}} \cdot n_1 $$
+$$\Rightarrow n = n_1 + \frac{k}{1-k} \cdot n_1 $$
+$$\Rightarrow n_1 + n_2 = n_1 + \frac{k}{1-k} \cdot n_1 $$
+$$\Rightarrow n_2 = n_1 + \frac{k}{1-k} \cdot n_1 - n_1 $$
+$$\Rightarrow n_2 = n_1 - n_1 + \frac{k}{1-k} \cdot n_1 $$
+$$\Rightarrow n_2 = \frac{k}{1-k} \cdot n_1 $$
+
+Thus, when $n = n_1 + n_2$ we may express $n_2$ in terms of $n_1$.  
+
+### 2.a Practical Implementation
+Being able to express $n_2$ in terms of $n_1$ makes it easier to calculate 
+sample size and power calculations in the case of unequal sample sizes.  In this
+particular context, we can express $n_2$ in terms of a ratio multiplied by $n_1$.  
+For example, if there are two subjects in Group 1 for every subject in Group 2, 
+$n_2 = \frac{1}{2} \cdot n_1$.  
